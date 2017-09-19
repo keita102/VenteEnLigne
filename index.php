@@ -1,5 +1,6 @@
 <?php
 session_start(); // Permet de reutiliser du PHP dans une autre page seulement en rappeler la fonction session_start();
+$bdd = new PDO("mysql:host=localhost;dbname=leboncoin;charset=utf8","root","");
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -14,7 +15,9 @@ session_start(); // Permet de reutiliser du PHP dans une autre page seulement en
     <title>LaZone e-commerce Accueil</title>
 
     <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="vendor/bootstrap/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="css/shop-homepage.css" rel="stylesheet">
@@ -44,11 +47,19 @@ session_start(); // Permet de reutiliser du PHP dans une autre page seulement en
               <a class="nav-link" href="#">DEMANDES</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">PANIER</a>
+              <a class="nav-link" href="#">PANIER<span class='badge'>3</span></a>
             </li>
             <li class="nav-item">
-              <li onclick="document.getElementById('id01').style.display='block'"> <!-- Appel de la fonction onclick -->
-                <a class="nav-link" href="#">Mon Compte</a>
+              <?php
+            		if (isset ($_SESSION['mail']))
+            			{
+            				echo "<li><a href='deconnexion.php'><span class='glyphicon glyphicon-remove'></span> Deconnexion</a></li>";
+            			}else
+            			{
+            				echo "<li><a href='inscription.php'><span class='glyphicon glyphicon-pencil'></span> Inscrivez-vous</a></li>";
+            			}
+          		?>
+              <li onclick="document.getElementById('id01').style.display='block'"><a class="nav-link" href="inscription.php">Mon Compte</a> <!-- Appel de la fonction onclick -->
             </li>
             <div id="id01" class="modal">
 
@@ -86,6 +97,14 @@ session_start(); // Permet de reutiliser du PHP dans une autre page seulement en
       <div class="row">
 
         <div class="col-lg-3">
+
+          <?php
+            if(isset($_POST['valider']))
+            {
+              echo "<div align='center'><h1>"."Vous venez de vous inscrire !"."</h1></div><br/><br/>";
+              
+            }
+          ?>
 
           <h1 class="my-4">Catégories</h1>
           <div class="list-group">
