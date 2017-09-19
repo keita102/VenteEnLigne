@@ -1,5 +1,8 @@
+<?php
+session_start(); // Permet de reutiliser du PHP dans une autre page seulement en rappeler la fonction session_start();
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
   <head>
 
@@ -8,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>LeBonCoin Accueil</title>
+    <title>LaZone e-commerce Accueil</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -23,26 +26,55 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="#">LeBonCoin</a>
+        <a class="navbar-brand" href="#">LaZone</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="#">Accueil
+              <a class="nav-link" href="#">ACCUEIL
                 <span class="sr-only">(current)</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">A propos</a>
+              <a class="nav-link" href="#">DEPOSER UNE ANNONCE</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Services</a>
+              <a class="nav-link" href="#">DEMANDES</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
+              <a class="nav-link" href="#">PANIER</a>
             </li>
+            <li class="nav-item">
+              <li onclick="document.getElementById('id01').style.display='block'"> <!-- Appel de la fonction onclick -->
+                <a class="nav-link" href="#">Mon Compte</a>
+            </li>
+            <div id="id01" class="modal">
+
+  <form class="modal-content animate" method="post" action="index.php">
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+      <img src="images/vehicules/auto_connexion.png" alt="Avatar" class="avatar">
+    </div>
+
+    <div align="center" class="container">
+      <label><b>Utilisateur</b></label>
+      <input type="email" placeholder="Entrer votre mail" name="mail" required><br/><br/>
+
+      <label><b>Mot de passe</b></label>
+      <input type="password" placeholder="Entrer un mot de passe" name="mdp" required><br/>
+
+      <button class="button1" type="submit" name="seconnecter">Connexion</button><br/>
+      <input type="checkbox" name="rememberMe" id="rememberCheckbox"/> <label for="rememberCheckbox">Se souvenir de moi
+	  <span class="psw">Mot de passe <a href="# ">oublié ?</a></span>
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Annuler</button>
+    </div>
+  </form>
+</div>
           </ul>
         </div>
       </div>
@@ -55,11 +87,14 @@
 
         <div class="col-lg-3">
 
-          <h1 class="my-4">Shop Name</h1>
+          <h1 class="my-4">Catégories</h1>
           <div class="list-group">
-            <a href="#" class="list-group-item">Category 1</a>
-            <a href="#" class="list-group-item">Category 2</a>
-            <a href="#" class="list-group-item">Category 3</a>
+            <a href="#" class="list-group-item">Véhicules</a>
+            <a href="#" class="list-group-item">Multimédia</a>
+            <a href="#" class="list-group-item">Vetements</a>
+            <a href="#" class="list-group-item">Bijoux</a>
+            <a href="#" class="list-group-item">Chaussures</a>
+            <a href="#" class="list-group-item">Livres</a>
           </div>
 
         </div>
@@ -207,7 +242,7 @@
     <!-- Footer -->
     <footer class="py-5 bg-dark">
       <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
+        <p class="m-0 text-center text-white">Copyright &copy; Kevin Achiche 2017</p>
       </div>
       <!-- /.container -->
     </footer>
