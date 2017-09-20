@@ -1,75 +1,81 @@
 <?php
 session_start(); // Permet de reutiliser du PHP dans une autre page seulement en rappeler la fonction session_start();
-// $bdd = new PDO("mysql:host=localhost;dbname=leboncoin;charset=utf8","root","");
 $bdd = new PDO("mysql:host=localhost;dbname=leboncoin;charset=utf8","root","");
 ?>
 <!DOCTYPE html>
 <html lang="fr">
-@@ -12,7 +12,7 @@ $bdd = new PDO("mysql:host=localhost;dbname=leboncoin;charset=utf8","root","");
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
 
     <title>PizzaTen Accueil</title>
-    <title>LaZone e-commerce Accueil</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
-@@ -29,7 +29,7 @@ $bdd = new PDO("mysql:host=localhost;dbname=leboncoin;charset=utf8","root","");
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="vendor/bootstrap/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/shop-homepage.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
         <a class="navbar-brand" href="#">PizzaTen</a>
-        <a class="navbar-brand" href="#">LaZone</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-@@ -41,28 +41,26 @@ $bdd = new PDO("mysql:host=localhost;dbname=leboncoin;charset=utf8","root","");
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">ACCUEIL
+                <span class="sr-only">(current)</span>
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">LA CARTE</a>
-              <a class="nav-link" href="#">DEPOSER UNE ANNONCE</a>
             </li>
-            <!-- <li class="nav-item">
             <li class="nav-item">
-              <a class="nav-link" href="#">DEMANDES</a>
-            </li> -->
+              <a class="nav-link" href="#">LES MENUS</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">LES BOISSONS</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">PANIER<span class='badge'>3</span></a>
             </li>
             <li class="nav-item">
               <?php
-                if (isset ($_SESSION['mail']))
-                  {
-                    echo "<li><a href='deconnexion.php'><span class='glyphicon glyphicon-remove'></span> Deconnexion</a></li>";
-                    echo "<li class='nav-item'><a href='deconnexion.php'><span class='glyphicon glyphicon-remove'></span>Deconnexion</a></li>";
-                    echo "<li onclick='.document.getElementById('id01').style.display='block''><a class='nav-link' href='#'>Mon Compte</a></li>"; //Appel de la fonction onclick
-                  }else
-                  {
-                    echo "<li><a href='inscription.php'><span class='glyphicon glyphicon-pencil'></span> Inscrivez-vous</a></li>";
-                    echo "<li class='nav-item'><a class='nav-link' href='inscription.php'>Inscrivez-vous</a></li>";
-                  }
-              ?>
-              <li onclick="document.getElementById('id01').style.display='block'"><a class="nav-link" href="inscription.php">Mon Compte</a> <!-- Appel de la fonction onclick -->
-            </li>
-            <div id="id01" class="modal">
             		if (isset ($_SESSION['mail']))
             			{
-            				echo "<li><a href='deconnexion.php'><span class='glyphicon glyphicon-remove'></span> Deconnexion</a></li>";
+                    echo "<li class='nav-item'><a href='deconnexion.php'><span class='glyphicon glyphicon-remove'></span>Deconnexion</a></li>";
+                    echo "<li onclick='.document.getElementById('id01').style.display='block''><a class='nav-link' href='#'>Mon Compte</a></li>"; //Appel de la fonction onclick
             			}else
             			{
-            				echo "<li><a href='inscription.php'><span class='glyphicon glyphicon-pencil'></span> Inscrivez-vous</a></li>";
+                    echo "<li class='nav-item'><a class='nav-link' href='inscription.php'>Inscrivez-vous</a></li>";
             			}
           		?>
-              <li onclick="document.getElementById('id01').style.display='block'"><a class="nav-link" href="inscription.php">Mon Compte</a> <!-- Appel de la fonction onclick -->
             </li>
-            <div id="id01" class="modal">
-
+<div id="id01" class="modal">
   <form class="modal-content animate" method="post" action="index.php">
     <div class="imgcontainer">
       <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-@@ -77,7 +75,6 @@ $bdd = new PDO("mysql:host=localhost;dbname=leboncoin;charset=utf8","root","");
+      <img src="images/vehicules/auto_connexion.png" alt="Avatar" class="avatar">
+    </div>
+
+    <div align="center" class="container">
+      <label><b>Utilisateur</b></label>
+      <input type="email" placeholder="Entrer votre mail" name="mail" required><br/><br/>
+
+      <label><b>Mot de passe</b></label>
       <input type="password" placeholder="Entrer un mot de passe" name="mdp" required><br/>
 
       <button class="button1" type="submit" name="seconnecter">Connexion</button><br/>
@@ -77,7 +83,15 @@ $bdd = new PDO("mysql:host=localhost;dbname=leboncoin;charset=utf8","root","");
 	  <span class="psw">Mot de passe <a href="# ">oublié ?</a></span>
     </div>
 
-Changement site vente Pizzas en ligne
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Annuler</button>
+    </div>
+  </form>
+</div>
+          </ul>
+        </div>
+      </div>
+    </nav>
 
     <!-- Page Content -->
     <div class="container">
@@ -90,18 +104,20 @@ Changement site vente Pizzas en ligne
             if(isset($_POST['valider']))
             {
               echo "<div align='center'><h1>"."Vous venez de vous inscrire !"."</h1></div><br/><br/>";
-              
+              $sql = "INSERT INTO utilisateur (nom, prenom, birth, email, mdp)
+                      VALUES (".$_POST['nom'].", ".$_POST['prenom'].", ".$_POST['birth'].", ".$_POST['email'].", ".$_POST['mdp'].")";
+              $bdd->exec($sql);
+              echo "New record created successfully";
+              echo $sql;
             }
           ?>
 
-          <h1 class="my-4">Catégories</h1>
+          <h1 class="my-4">Commandez en ligne !</h1>
           <div class="list-group">
-            <a href="#" class="list-group-item">Véhicules</a>
-            <a href="#" class="list-group-item">Multimédia</a>
-            <a href="#" class="list-group-item">Vetements</a>
-            <a href="#" class="list-group-item">Bijoux</a>
-            <a href="#" class="list-group-item">Chaussures</a>
-            <a href="#" class="list-group-item">Livres</a>
+            <a href="#" class="list-group-item">Les Pizzas</a>
+            <a href="#" class="list-group-item">Les Menus</a>
+            <a href="#" class="list-group-item">Les Desserts et Glaces</a>
+            <a href="#" class="list-group-item">Les Boissons</a>
           </div>
 
         </div>
@@ -249,38 +265,16 @@ Changement site vente Pizzas en ligne
     <!-- Footer -->
     <footer class="py-5 bg-dark">
       <div class="container">
-32
-        <a class="navbar-brand" href="#">PizzaTen</a>
-33
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-34
-          <span class="navbar-toggler-icon"></span>
-35
-        </button>
-36
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-37
-          <ul class="navbar-nav ml-auto">
-38
-            <li class="nav-item active">
-3774ac
-39
-              <a class="nav-link" href="#">ACCUEIL
-7dbd49
-40
-                <span class="sr-only">(current)</span>
-41
-              </a>
-42
-            </li>
-43
-            <li class="nav-item">
-44
-              <a class="nav-link" href="#">LA CARTE</a>
-45
-            </li>
-46
-            <!-- <li class="nav-item">
-3774ac
-47
-              <a class="nav-link" href="#">DEMANDES</a>
+        <p class="m-0 text-center text-white">Copyright &copy; Kevin Achiche 2017</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/popper/popper.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+  </body>
+
+</html>
