@@ -1,6 +1,6 @@
 <?php
 session_start(); // Permet de reutiliser du PHP dans une autre page seulement en rappeler la fonction session_start();
-$bdd = new PDO("mysql:host=localhost;dbname=leboncoin;charset=utf8","root","");
+// $bdd = new PDO("mysql:host=localhost;dbname=leboncoin;charset=utf8","root","");
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -12,7 +12,7 @@ $bdd = new PDO("mysql:host=localhost;dbname=leboncoin;charset=utf8","root","");
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>LaZone e-commerce Accueil</title>
+    <title>PizzaTen Accueil</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
@@ -29,7 +29,7 @@ $bdd = new PDO("mysql:host=localhost;dbname=leboncoin;charset=utf8","root","");
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="#">LaZone</a>
+        <a class="navbar-brand" href="#">PizzaTen</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -41,28 +41,26 @@ $bdd = new PDO("mysql:host=localhost;dbname=leboncoin;charset=utf8","root","");
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">DEPOSER UNE ANNONCE</a>
+              <a class="nav-link" href="#">LA CARTE</a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link" href="#">DEMANDES</a>
-            </li>
+            </li> -->
             <li class="nav-item">
               <a class="nav-link" href="#">PANIER<span class='badge'>3</span></a>
             </li>
-            <li class="nav-item">
               <?php
             		if (isset ($_SESSION['mail']))
             			{
-            				echo "<li><a href='deconnexion.php'><span class='glyphicon glyphicon-remove'></span> Deconnexion</a></li>";
+            				echo "<li class='nav-item'><a href='deconnexion.php'><span class='glyphicon glyphicon-remove'></span>Deconnexion</a></li>";
+                    echo "<li onclick='.document.getElementById('id01').style.display='block''><a class='nav-link' href='#'>Mon Compte</a></li>"; //Appel de la fonction onclick
             			}else
             			{
-            				echo "<li><a href='inscription.php'><span class='glyphicon glyphicon-pencil'></span> Inscrivez-vous</a></li>";
+            				echo "<li class='nav-item'><a class='nav-link' href='inscription.php'>Inscrivez-vous</a></li>";
             			}
           		?>
-              <li onclick="document.getElementById('id01').style.display='block'"><a class="nav-link" href="inscription.php">Mon Compte</a> <!-- Appel de la fonction onclick -->
-            </li>
-            <div id="id01" class="modal">
 
+<div id="id01" class="modal">
   <form class="modal-content animate" method="post" action="index.php">
     <div class="imgcontainer">
       <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
@@ -77,7 +75,6 @@ $bdd = new PDO("mysql:host=localhost;dbname=leboncoin;charset=utf8","root","");
       <input type="password" placeholder="Entrer un mot de passe" name="mdp" required><br/>
 
       <button class="button1" type="submit" name="seconnecter">Connexion</button><br/>
-      <input type="checkbox" name="rememberMe" id="rememberCheckbox"/> <label for="rememberCheckbox">Se souvenir de moi
 	  <span class="psw">Mot de passe <a href="# ">oublié ?</a></span>
     </div>
 
@@ -102,18 +99,16 @@ $bdd = new PDO("mysql:host=localhost;dbname=leboncoin;charset=utf8","root","");
             if(isset($_POST['valider']))
             {
               echo "<div align='center'><h1>"."Vous venez de vous inscrire !"."</h1></div><br/><br/>";
-              
+
             }
           ?>
 
-          <h1 class="my-4">Catégories</h1>
+          <h1 class="my-4">Commandez en ligne !</h1>
           <div class="list-group">
-            <a href="#" class="list-group-item">Véhicules</a>
-            <a href="#" class="list-group-item">Multimédia</a>
-            <a href="#" class="list-group-item">Vetements</a>
-            <a href="#" class="list-group-item">Bijoux</a>
-            <a href="#" class="list-group-item">Chaussures</a>
-            <a href="#" class="list-group-item">Livres</a>
+            <a href="#" class="list-group-item">Les Pizzas</a>
+            <a href="#" class="list-group-item">Les Menus</a>
+            <a href="#" class="list-group-item">Les Desserts et Glaces</a>
+            <a href="#" class="list-group-item">Les Boissons</a>
           </div>
 
         </div>
