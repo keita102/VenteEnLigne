@@ -54,12 +54,11 @@ $bdd = new PDO("mysql:host=localhost;dbname=pizzaten;charset=utf8","root","");
             </li>
             <li class="nav-item">
               <?php
-            		if (isset ($_SESSION['mail']))
-            			{
+            		if (isset ($_SESSION['mail'])){
                     echo "<li class='nav-item'><a href='deconnexion.php'><span class='glyphicon glyphicon-remove'></span>Deconnexion</a></li>";
                     echo "<li onclick='.document.getElementById('id01').style.display='block''><a class='nav-link' href='#'>Mon Compte</a></li>"; //Appel de la fonction onclick
-            			}else
-            			{
+            			}else{
+                    echo "<li onclick='.document.getElementById('id01').style.display='block''><a class='nav-link' href='#'>Connexion</a></li>"; //Appel de la fonction onclick
                     echo "<li class='nav-item'><a class='nav-link' href='inscription.php'>Inscrivez-vous</a></li>";
             			}
           		?>
@@ -68,7 +67,7 @@ $bdd = new PDO("mysql:host=localhost;dbname=pizzaten;charset=utf8","root","");
   <form class="modal-content animate" method="post" action="index.php">
     <div class="imgcontainer">
       <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-      <img src="images/vehicules/auto_connexion.png" alt="Avatar" class="avatar">
+      <img src="images/logoPizza.png" alt="Avatar" class="avatar">
     </div>
 
     <div align="center" class="container">
