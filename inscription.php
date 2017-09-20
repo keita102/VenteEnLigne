@@ -14,8 +14,8 @@
           <h1><label>Date de Naissance</label></h1> <input type="date" name="birth">
 				</td>
 				<td>
-  				<h1><label>Civilité</label></h1><h3><input type="radio" name="civilite" value="femme" />Femme&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="sexe" value="homme" />Homme</h3>
-          <h1><label>Mail</label></h1> <input type="email" name="mail" placeholder="Adresse mail" required>
+  				<!--<h1><label>Civilité</label></h1><h3><input type="radio" name="civilite" value="femme" />Femme&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="sexe" value="homme" />Homme</h3>-->
+          <h1><label>Mail</label></h1> <input type="email" name="email" placeholder="Adresse mail" required>
           <h1><label>Mot de passe</label></h1> <input type="password" placeholder="Mot de passe" size="25" name="mdp"/>
 				</td>
 				</td>

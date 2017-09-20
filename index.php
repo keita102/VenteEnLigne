@@ -99,7 +99,10 @@ session_start(); // Permet de reutiliser du PHP dans une autre page seulement en
             if(isset($_POST['valider']))
             {
               echo "<div align='center'><h1>"."Vous venez de vous inscrire !"."</h1></div><br/><br/>";
-
+              $sql = "INSERT INTO utilisateur (nom, prenom, birth, email, mdp)
+                      VALUES (".$_POST['nom'].", ".$_POST['prenom'].", ".$_POST['birth'].", ".$_POST['email'].", ".$_POST['mdp'].")";
+              $bdd->exec($sql);
+              echo "New record created successfully";
             }
           ?>
 
