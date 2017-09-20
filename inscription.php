@@ -1,3 +1,8 @@
+<?php
+session_start(); // Permet de reutiliser du PHP dans une autre page seulement en rappeler la fonction session_start();
+$bdd = new PDO("mysql:host=localhost;dbname=pizzaten;charset=utf8","root","");
+?>
+
 <html>
 	<body>
     <head>

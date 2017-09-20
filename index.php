@@ -1,6 +1,6 @@
 <?php
 session_start(); // Permet de reutiliser du PHP dans une autre page seulement en rappeler la fonction session_start();
-$bdd = new PDO("mysql:host=localhost;dbname=leboncoin;charset=utf8","root","");
+$bdd = new PDO("mysql:host=localhost;dbname=pizzaten;charset=utf8","root","");
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -79,7 +79,6 @@ $bdd = new PDO("mysql:host=localhost;dbname=leboncoin;charset=utf8","root","");
       <input type="password" placeholder="Entrer un mot de passe" name="mdp" required><br/>
 
       <button class="button1" type="submit" name="seconnecter">Connexion</button><br/>
-      <input type="checkbox" name="rememberMe" id="rememberCheckbox"/> <label for="rememberCheckbox">Se souvenir de moi
 	  <span class="psw">Mot de passe <a href="# ">oublié ?</a></span>
     </div>
 
@@ -101,13 +100,20 @@ $bdd = new PDO("mysql:host=localhost;dbname=leboncoin;charset=utf8","root","");
         <div class="col-lg-3">
 
           <?php
+
             if(isset($_POST['valider']))
             {
+              $nomC = $_POST['nom'];
+              $prenomC = $_POST['prenom'];
+              $birthC = $_POST['birth'];
+              $emailC = $_POST['email'];
+              $mdpC = $_POST['mdp'];
+
               echo "<div align='center'><h1>"."Vous venez de vous inscrire !"."</h1></div><br/><br/>";
-              $sql = "INSERT INTO utilisateur (nom, prenom, birth, email, mdp)
-                      VALUES (".$_POST['nom'].", ".$_POST['prenom'].", ".$_POST['birth'].", ".$_POST['email'].", ".$_POST['mdp'].")";
+              $sql = "INSERT INTO utilisateur (nom, prenom, birth, email, mdp, type)
+                      VALUES ('$nomC', '$prenomC', '$birthC', '$emailC', '$mdpC', 'client')";
               $bdd->exec($sql);
-              echo "New record created successfully";
+              echo "Veuillez vous connecter pour accéder à vos commandes";
               echo $sql;
             }
           ?>
