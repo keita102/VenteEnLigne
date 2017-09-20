@@ -29,14 +29,14 @@ $bdd = new PDO("mysql:host=localhost;dbname=pizzaten;charset=utf8","root","");
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="#">PizzaTen</a>
+        <a class="navbar-brand" href="http://localhost/leboncoin/VenteEnLigne/">PizzaTen</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="#">ACCUEIL
+              <a class="nav-link" href="http://localhost/leboncoin/VenteEnLigne/">ACCUEIL
                 <span class="sr-only">(current)</span>
               </a>
             </li>
@@ -52,17 +52,17 @@ $bdd = new PDO("mysql:host=localhost;dbname=pizzaten;charset=utf8","root","");
             <li class="nav-item">
               <a class="nav-link" href="#">PANIER<span class='badge'>3</span></a>
             </li>
-            <li class="nav-item">
+
               <?php
             		if (isset ($_SESSION['mail'])){
-                    echo "<li class='nav-item'><a href='deconnexion.php'><span class='glyphicon glyphicon-remove'></span>Deconnexion</a></li>";
+                    echo "<li class='nav-item'><a href='deconnexion.php'>Deconnexion</a></li>";
                     echo "<li onclick='.document.getElementById('id01').style.display='block''><a class='nav-link' href='#'>Mon Compte</a></li>"; //Appel de la fonction onclick
             			}else{
                     echo "<li onclick='.document.getElementById('id01').style.display='block''><a class='nav-link' href='#'>Connexion</a></li>"; //Appel de la fonction onclick
                     echo "<li class='nav-item'><a class='nav-link' href='inscription.php'>Inscrivez-vous</a></li>";
             			}
           		?>
-            </li>
+
 <div id="id01" class="modal">
   <form class="modal-content animate" method="post" action="index.php">
     <div class="imgcontainer">
@@ -72,13 +72,12 @@ $bdd = new PDO("mysql:host=localhost;dbname=pizzaten;charset=utf8","root","");
 
     <div align="center" class="container">
       <label><b>Utilisateur</b></label>
-      <input type="email" placeholder="Entrer votre mail" name="mail" required><br/><br/>
+      <input type="email" placeholder="Entrer votre mail" name="emailUser" required><br/><br/>
 
       <label><b>Mot de passe</b></label>
-      <input type="password" placeholder="Entrer un mot de passe" name="mdp" required><br/>
+      <input type="password" placeholder="Entrer un mot de passe" name="mdpUser" required><br/>
 
-      <button class="button1" type="submit" name="seconnecter">Connexion</button><br/>
-	  <span class="psw">Mot de passe <a href="# ">oublié ?</a></span>
+      <button class="button1" type="submit" name="seconnecterUser">Connexion</button><br/>
     </div>
 
     <div class="container" style="background-color:#f1f1f1">
@@ -100,20 +99,19 @@ $bdd = new PDO("mysql:host=localhost;dbname=pizzaten;charset=utf8","root","");
 
           <?php
 
-            if(isset($_POST['valider']))
+            if(isset($_POST['validerInscription']))
             {
-              $nomC = $_POST['nom'];
-              $prenomC = $_POST['prenom'];
-              $birthC = $_POST['birth'];
-              $emailC = $_POST['email'];
-              $mdpC = $_POST['mdp'];
+              $nomC = $_POST['nomInscription'];
+              $prenomC = $_POST['prenomInscription'];
+              $birthC = $_POST['birthInscription'];
+              $emailC = $_POST['emailInscription'];
+              $mdpC = $_POST['mdpInscription'];
 
               echo "<div align='center'><h1>"."Vous venez de vous inscrire !"."</h1></div><br/><br/>";
               $sql = "INSERT INTO utilisateur (nom, prenom, birth, email, mdp, type)
                       VALUES ('$nomC', '$prenomC', '$birthC', '$emailC', '$mdpC', 'client')";
               $bdd->exec($sql);
               echo "Veuillez vous connecter pour accéder à vos commandes";
-              echo $sql;
             }
           ?>
 
