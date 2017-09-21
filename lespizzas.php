@@ -39,16 +39,15 @@ connexionUser($bdd);
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="index.php">ACCUEIL
-                <span class="sr-only">(current)</span>
-              </a>
+            <li class="nav-item">
+              <a class="nav-link" href="index.php">ACCUEIL</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="lacarte.php">LA CARTE</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
               <a class="nav-link" href="lespizzas.php">LES PIZZAS</a>
+              <span class="sr-only">(current)</span>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="lesdesserts.php">LES DESSERTS</a>
@@ -60,19 +59,19 @@ connexionUser($bdd);
               <a class="nav-link" href="#">PANIER<span class='badge'>3</span></a>
             </li>
 
-              <?php
-            		if(isset ($_SESSION['email'])){
-                  if($_SESSION['type'] == 'admin'){
-                    echo "<li class='nav-item'><a class='nav-link' href='#'>Mon Compte Administrateur</a></li>";
-                  }else{
-                    echo "<li class='nav-item'><a class='nav-link' href='#'>Mon Compte Client</a></li>";
-                  }
-                  echo "<li class='nav-item'><a class='nav-link' href='deconnexion.php'>Deconnexion</a></li>";
-            		}else{
-                  echo "<li onclick=\"document.getElementById('id01').style.display='block'\"><a class='nav-link' href='#'><span class='glyphicon glyphicon-user'></span>Connexion</a></li>"; //Appel de la fonction onclick
-                  echo "<li class='nav-item'><a class='nav-link' href='inscription.php'>Inscrivez-vous</a></li>";
-            		}
-          		?>
+            <?php
+              if(isset ($_SESSION['email'])){
+                if($_SESSION['type'] == 'admin'){
+                  echo "<li class='nav-item'><a class='nav-link' href='#'>Mon Compte Administrateur</a></li>";
+                }else{
+                  echo "<li class='nav-item'><a class='nav-link' href='#'>Mon Compte Client</a></li>";
+                }
+                echo "<li class='nav-item'><a class='nav-link' href='deconnexion.php'>Deconnexion</a></li>";
+              }else{
+                echo "<li onclick=\"document.getElementById('id01').style.display='block'\"><a class='nav-link' href='#'><span class='glyphicon glyphicon-user'></span>Connexion</a></li>"; //Appel de la fonction onclick
+                echo "<li class='nav-item'><a class='nav-link' href='inscription.php'>Inscrivez-vous</a></li>";
+              }
+            ?>
 
           </ul>
         </div>
@@ -135,7 +134,7 @@ connexionUser($bdd);
           <div class="row">
 
           <?php
-            selectionProduit($bdd); //Appel de la fonction selectionProduit
+            selectionPizza($bdd); //Appel de la fonction selectionProduit
           ?>
 
           </div>

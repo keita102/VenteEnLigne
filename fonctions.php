@@ -1,3 +1,7 @@
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+  </head>
 <?php
 $bdd = new PDO("mysql:host=localhost;dbname=pizzaten;charset=utf8","root",""); //Variable de connexion a la BDD pizzaten
 
@@ -30,19 +34,17 @@ function connexion($bdd){
     $resultat = $sqlUser->fetch();
 
     if($resultat != false){
-      echo "Connexion reussie";
-      echo "<br/>";
-      echo $_SESSION['idUtilisateur'];
+      echo "Vous etes connecter en tant qu'administrateur : ";
       echo "<br/>";
       echo $_SESSION['nom'];
-      echo "<br/>";
+      echo " ";
       echo $_SESSION['prenom'];
-      echo "<br/>";
-      echo $_SESSION['email'];
-      echo "<br/>";
-      echo $_SESSION['type'];
+      echo "<br/><br/>";
+      // echo $_SESSION['email'];
+      // echo "<br/>";
+      // echo $_SESSION['type'];
     }else{
-      echo "Utilisateur inconnu";
+      echo "Veuillez entrer des identifiants correct ou bien vous inscrire en cliquant <a href='inscription.php'>ici</a><br/><br/>";
     }
   }
 }
@@ -72,4 +74,109 @@ function connexionUser($bdd){
     }
   }
 }
+
+
+//Fonction selectionPizza qui selectionne seulement les pizzas
+function selectionPizza($bdd){
+    $sqlProduit = $bdd->query("SELECT * FROM produit WHERE categorie = 'pizza'");
+    while($unePizza = $sqlProduit->fetch()){
 ?>
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card h-100">
+        <a href="#"><img class="card-img-top" src="<?php echo $unePizza['urlPhoto']; ?>" alt=""></a>
+        <div class="card-body">
+          <h4 class="card-title">
+            <a href="#"><?php echo $unePizza['nomProduit']; ?></a>
+          </h4>
+          <h5><?php echo $unePizza['prixProduit']."€"; ?></h5>
+          <p class="card-text"><?php echo $unePizza['descriptionProduit']; ?></p>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+        </div>
+      </div>
+    </div>
+  <?php
+    }
+}
+
+
+//Fonction selectionProduit qui selectionne tout les produits
+function selectionProduit($bdd){
+    $sqlProduit = $bdd->query("SELECT * FROM produit");
+    while($unePizza = $sqlProduit->fetch()){
+?>
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card h-100">
+        <a href="#"><img class="card-img-top" src="<?php echo $unePizza['urlPhoto']; ?>" alt=""></a>
+        <div class="card-body">
+          <h4 class="card-title">
+            <a href="#"><?php echo $unePizza['nomProduit']; ?></a>
+          </h4>
+          <h5><?php echo $unePizza['prixProduit']."€"; ?></h5>
+          <p class="card-text"><?php echo $unePizza['descriptionProduit']; ?></p>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+        </div>
+      </div>
+    </div>
+  <?php
+    }
+}
+
+
+//Fonction selectionBoisson qui selectionne seulement les boissons
+function selectionBoisson($bdd){
+    $sqlProduit = $bdd->query("SELECT * FROM produit WHERE categorie = 'boisson'");
+    while($unePizza = $sqlProduit->fetch()){
+?>
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card h-100">
+        <a href="#"><img class="card-img-top" src="<?php echo $unePizza['urlPhoto']; ?>" alt=""></a>
+        <div class="card-body">
+          <h4 class="card-title">
+            <a href="#"><?php echo $unePizza['nomProduit']; ?></a>
+          </h4>
+          <h5><?php echo $unePizza['prixProduit']."€"; ?></h5>
+          <p class="card-text"><?php echo $unePizza['descriptionProduit']; ?></p>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+        </div>
+      </div>
+    </div>
+  <?php
+    }
+}
+
+
+//Fonction selectionDessert qui selectionne seulement les desserts
+function selectionDessert($bdd){
+    $sqlProduit = $bdd->query("SELECT * FROM produit WHERE categorie = 'dessert'");
+    while($unePizza = $sqlProduit->fetch()){
+?>
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card h-100">
+        <a href="#"><img class="card-img-top" src="<?php echo $unePizza['urlPhoto']; ?>" alt=""></a>
+        <div class="card-body">
+          <h4 class="card-title">
+            <a href="#"><?php echo $unePizza['nomProduit']; ?></a>
+          </h4>
+          <h5><?php echo $unePizza['prixProduit']."€"; ?></h5>
+          <p class="card-text"><?php echo $unePizza['descriptionProduit']; ?></p>
+        </div>
+        <div class="card-footer">
+          Quantité : <input type="number" name="quantityDessert" min="0" max="100">
+          <input type="submit" name="validerCommande" value="Valider la commande">
+          <input type="submit" name="validerPanier" value="Mettre dans le panier">
+        </div>
+      </div>
+    </div>
+  <?php
+    }
+}
+?>
+
+
+</html>
