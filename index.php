@@ -1,6 +1,9 @@
 <?php
 session_start(); // Permet de reutiliser du PHP dans une autre page seulement en rappeler la fonction session_start();
-$bdd = new PDO("mysql:host=localhost;dbname=pizzaten;charset=utf8","root","");
+$bdd = new PDO("mysql:host=localhost;dbname=pizzaten;charset=utf8","root",""); //Variable de connexion a la BDD pizzaten
+include("fonctions.php"); //On inclut la page fonction.php qui contient toute les fonctions a utiliser sur cette page
+include("connexion.php");
+connexionUser($bdd);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -18,6 +21,7 @@ $bdd = new PDO("mysql:host=localhost;dbname=pizzaten;charset=utf8","root","");
     <link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="vendor/bootstrap/css/font-awesome.min.css" rel="stylesheet">
+    <link href="vendor/bootstrap/css/my_account.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="css/shop-homepage.css" rel="stylesheet">
@@ -29,14 +33,14 @@ $bdd = new PDO("mysql:host=localhost;dbname=pizzaten;charset=utf8","root","");
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="http://localhost/leboncoin/VenteEnLigne/">PizzaTen</a>
+        <a class="navbar-brand" href="http://localhost/leboncoin/VenteEnLigne/index.php">PizzaTen</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="http://localhost/leboncoin/VenteEnLigne/">ACCUEIL
+              <a class="nav-link" href="http://localhost/leboncoin/VenteEnLigne/index.php">ACCUEIL
                 <span class="sr-only">(current)</span>
               </a>
             </li>
@@ -54,37 +58,18 @@ $bdd = new PDO("mysql:host=localhost;dbname=pizzaten;charset=utf8","root","");
             </li>
 
               <?php
-            		if (isset ($_SESSION['mail'])){
-                    echo "<li class='nav-item'><a href='deconnexion.php'>Deconnexion</a></li>";
-                    echo "<li onclick='.document.getElementById('id01').style.display='block''><a class='nav-link' href='#'>Mon Compte</a></li>"; //Appel de la fonction onclick
-            			}else{
-                    echo "<li onclick='.document.getElementById('id01').style.display='block''><a class='nav-link' href='#'>Connexion</a></li>"; //Appel de la fonction onclick
-                    echo "<li class='nav-item'><a class='nav-link' href='inscription.php'>Inscrivez-vous</a></li>";
-            			}
+            		if(isset ($_SESSION['email'])){
+                  echo "<li onclick=\"document.getElementById('id01').style.display='block'\"><a class='nav-link' href='#'><span class='glyphicon glyphicon-user'></span>Mon Compte</a></li>"; //Appel de la fonction onclick
+                  echo "<li class='nav-item'><a class='nav-link' href='deconnexion.php'>Deconnexion</a></li>";
+            		}else{
+                  echo "<li onclick=\"document.getElementById('id01').style.display='block'\"><a class='nav-link' href='#'><span class='glyphicon glyphicon-user'></span>Connexion</a></li>"; //Appel de la fonction onclick
+                  echo "<li class='nav-item'><a class='nav-link' href='inscription.php'>Inscrivez-vous</a></li>";
+            		}
+
+
+
           		?>
 
-<div id="id01" class="modal">
-  <form class="modal-content animate" method="post" action="index.php">
-    <div class="imgcontainer">
-      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-      <img src="images/logoPizza.png" alt="Avatar" class="avatar">
-    </div>
-
-    <div align="center" class="container">
-      <label><b>Utilisateur</b></label>
-      <input type="email" placeholder="Entrer votre mail" name="emailUser" required><br/><br/>
-
-      <label><b>Mot de passe</b></label>
-      <input type="password" placeholder="Entrer un mot de passe" name="mdpUser" required><br/>
-
-      <button class="button1" type="submit" name="seconnecterUser">Connexion</button><br/>
-    </div>
-
-    <div class="container" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Annuler</button>
-    </div>
-  </form>
-</div>
           </ul>
         </div>
       </div>
@@ -98,21 +83,7 @@ $bdd = new PDO("mysql:host=localhost;dbname=pizzaten;charset=utf8","root","");
         <div class="col-lg-3">
 
           <?php
-
-            if(isset($_POST['validerInscription']))
-            {
-              $nomC = $_POST['nomInscription'];
-              $prenomC = $_POST['prenomInscription'];
-              $birthC = $_POST['birthInscription'];
-              $emailC = $_POST['emailInscription'];
-              $mdpC = $_POST['mdpInscription'];
-
-              echo "<div align='center'><h1>"."Vous venez de vous inscrire !"."</h1></div><br/><br/>";
-              $sql = "INSERT INTO utilisateur (nom, prenom, birth, email, mdp, type)
-                      VALUES ('$nomC', '$prenomC', '$birthC', '$emailC', '$mdpC', 'client')";
-              $bdd->exec($sql);
-              echo "Veuillez vous connecter pour accéder à vos commandes";
-            }
+            inscription($bdd); //Appel de la fonction inscription
           ?>
 
           <h1 class="my-4">Commandez en ligne !</h1>
@@ -127,7 +98,6 @@ $bdd = new PDO("mysql:host=localhost;dbname=pizzaten;charset=utf8","root","");
         <!-- /.col-lg-3 -->
 
         <div class="col-lg-9">
-
           <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
             <ol class="carousel-indicators">
               <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -154,6 +124,10 @@ $bdd = new PDO("mysql:host=localhost;dbname=pizzaten;charset=utf8","root","");
               <span class="sr-only">Next</span>
             </a>
           </div>
+
+          <?php
+            connexion($bdd); //Appel de la fonction connexion
+          ?>
 
           <div class="row">
 
@@ -277,6 +251,7 @@ $bdd = new PDO("mysql:host=localhost;dbname=pizzaten;charset=utf8","root","");
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/popper/popper.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="vendor/bootstrap/js/formulaire_connexion.js"></script>
 
   </body>
 
