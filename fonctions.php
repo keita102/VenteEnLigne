@@ -166,15 +166,42 @@ function selectionDessert($bdd){
           <h5><?php echo $unePizza['prixProduit']."€"; ?></h5>
           <p class="card-text"><?php echo $unePizza['descriptionProduit']; ?></p>
         </div>
+      <form method="POST" action="#">
         <div class="card-footer">
-          Quantité : <input type="number" name="quantityDessert" min="0" max="100">
-          <input type="submit" name="validerCommande" value="Valider la commande">
-          <input type="submit" name="validerPanier" value="Mettre dans le panier">
+          <?php
+            if(isset($_SESSION['type']) && $_SESSION['type'] == 'client'){ // Si l'on se connecte en tant que client
+          ?>
+              Quantité : <input type="number" name="quantityDessert" min="0" max="100">
+              <input type="submit" name="validerCommande" value="Valider la commande">
+              <input type="submit" name="validerPanier" value="Mettre dans le panier">
+          <?php
+        }elseif(isset($_SESSION['type']) && $_SESSION['type'] == 'admin'){ // Si l'on se connecte en tant qu'admin
+          ?>
+              Ajouter : <input type="number" name="nbrDessert" min="0" max="100">
+              <input type="submit" name="insertDessert" value="Valider">
+          <?php
+            }
+          ?>
         </div>
+      </form>
       </div>
     </div>
   <?php
     }
+}
+
+
+//Fonction updateProduit qui modifie le nombre de produits dans la BDD
+function updateProduit($bdd){
+  if(isset($_POST['nbrDessert']))
+  {
+    $nbrDessert = $_POST['nbrDessert'];
+    $test = $unePizza['nomProduit'];
+    
+    $sqlAddProduit = "UPDATE produit SET nbrProduit = '$nbrDessert' WHERE nomProduit = '$test' ";
+    $bdd->exec($sqlAddProduit);
+    echo "Vous venez d'ajouter ".$nbrDessert." desserts";
+  }
 }
 ?>
 
