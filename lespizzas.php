@@ -134,7 +134,7 @@ connexionUser($bdd);
           <div class="row">
 
           <?php
-            selectionPizza($bdd); //Appel de la fonction selectionProduit
+            selectionP($bdd, 'pizza'); //Appel de la fonction selectionProduit
           ?>
 
           </div>

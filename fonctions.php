@@ -77,11 +77,11 @@ function connexionUser($bdd){
 
 
 //Fonction selectionPizza qui selectionne seulement les pizzas
-function selectionPizza($bdd){
-    $sqlProduit = $bdd->query("SELECT * FROM produit WHERE categorie = 'pizza'");
-    while($unePizza = $sqlProduit->fetch()){
+// function selectionPizza($bdd){
+//     $sqlProduit = $bdd->query("SELECT * FROM produit WHERE categorie = 'pizza'");
+//     while($unePizza = $sqlProduit->fetch()){
 ?>
-    <div class="col-lg-4 col-md-6 mb-4">
+    <!-- <div class="col-lg-4 col-md-6 mb-4">
       <div class="card h-100">
         <a href="#"><img class="card-img-top" src="<?php echo $unePizza['urlPhoto']; ?>" alt=""></a>
         <div class="card-body">
@@ -95,10 +95,10 @@ function selectionPizza($bdd){
           <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
         </div>
       </div>
-    </div>
+    </div> -->
   <?php
-    }
-}
+//     }
+// }
 
 
 //Fonction selectionProduit qui selectionne tout les produits
@@ -126,9 +126,34 @@ function selectionProduit($bdd){
 }
 
 
-//Fonction selectionBoisson qui selectionne seulement les boissons
-function selectionBoisson($bdd){
-    $sqlProduit = $bdd->query("SELECT * FROM produit WHERE categorie = 'boisson'");
+// //Fonction selectionBoisson qui selectionne seulement les boissons
+// function selectionBoisson($bdd){
+//     $sqlProduit = $bdd->query("SELECT * FROM produit WHERE categorie = 'boisson'");
+//     while($unePizza = $sqlProduit->fetch()){
+// ?>
+<!-- //     <div class="col-lg-4 col-md-6 mb-4">
+//       <div class="card h-100">
+//         <a href="#"><img class="card-img-top" src="<?php echo $unePizza['urlPhoto']; ?>" alt=""></a>
+//         <div class="card-body">
+//           <h4 class="card-title">
+//             <a href="#"><?php echo $unePizza['nomProduit']; ?></a>
+//           </h4>
+//           <h5><?php echo $unePizza['prixProduit']."€"; ?></h5>
+//           <p class="card-text"><?php echo $unePizza['descriptionProduit']; ?></p>
+//         </div>
+//         <div class="card-footer">
+//           <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+//         </div>
+//       </div>
+//     </div> -->
+   <?php
+//     }
+// }
+
+
+//Fonction selectionP qui selectionne les produits en fonction du produit desirer $produit
+function selectionP($bdd, $produit){
+    $sqlProduit = $bdd->query("SELECT * FROM produit WHERE categorie = '$produit'");
     while($unePizza = $sqlProduit->fetch()){
 ?>
     <div class="col-lg-4 col-md-6 mb-4">
@@ -136,48 +161,25 @@ function selectionBoisson($bdd){
         <a href="#"><img class="card-img-top" src="<?php echo $unePizza['urlPhoto']; ?>" alt=""></a>
         <div class="card-body">
           <h4 class="card-title">
-            <a href="#"><?php echo $unePizza['nomProduit']; ?></a>
+          <?php echo $unePizza['nomProduit']; ?>
           </h4>
           <h5><?php echo $unePizza['prixProduit']."€"; ?></h5>
           <p class="card-text"><?php echo $unePizza['descriptionProduit']; ?></p>
         </div>
+      <form method="GET" action="lesdesserts.php">
         <div class="card-footer">
-          <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-        </div>
-      </div>
-    </div>
-  <?php
-    }
-}
-
-
-//Fonction selectionDessert qui selectionne seulement les desserts
-function selectionDessert($bdd){
-    $sqlProduit = $bdd->query("SELECT * FROM produit WHERE categorie = 'dessert'");
-    while($unePizza = $sqlProduit->fetch()){
-?>
-    <div class="col-lg-4 col-md-6 mb-4">
-      <div class="card h-100">
-        <a href="#"><img class="card-img-top" src="<?php echo $unePizza['urlPhoto']; ?>" alt=""></a>
-        <div class="card-body">
-          <h4 class="card-title">
-            <a href="#"><?php echo $unePizza['nomProduit']; ?></a>
-          </h4>
-          <h5><?php echo $unePizza['prixProduit']."€"; ?></h5>
-          <p class="card-text"><?php echo $unePizza['descriptionProduit']; ?></p>
-        </div>
-      <form method="POST" action="#">
-        <div class="card-footer">
+          <input type="hidden" name="nomDessert" value="<?php echo $unePizza['nomProduit']; ?>">
           <?php
             if(isset($_SESSION['type']) && $_SESSION['type'] == 'client'){ // Si l'on se connecte en tant que client
           ?>
-              Quantité : <input type="number" name="quantityDessert" min="0" max="100">
+              Quantité : <input type="number" name="quantityDessert" min="0" max="50">
               <input type="submit" name="validerCommande" value="Valider la commande">
               <input type="submit" name="validerPanier" value="Mettre dans le panier">
           <?php
         }elseif(isset($_SESSION['type']) && $_SESSION['type'] == 'admin'){ // Si l'on se connecte en tant qu'admin
           ?>
-              Ajouter : <input type="number" name="nbrDessert" min="0" max="100">
+              <?php echo $unePizza['nomProduit']; echo ' : '.$unePizza['nbrProduit'].' produits<br/>';?>
+              Modifier le nombre de produits : <input type="number" name="nbrDessert" min="0" max="10000">
               <input type="submit" name="insertDessert" value="Valider">
           <?php
             }
@@ -191,14 +193,14 @@ function selectionDessert($bdd){
 }
 
 
-//Fonction updateProduit qui modifie le nombre de produits dans la BDD
+//Fonction updateProduit qui modifie le nombre de produits dans la BDD (gere le stock)
 function updateProduit($bdd){
-  if(isset($_POST['nbrDessert']))
+  if(isset($_GET['nbrDessert']))
   {
-    $nbrDessert = $_POST['nbrDessert'];
-    $test = $unePizza['nomProduit'];
-    
-    $sqlAddProduit = "UPDATE produit SET nbrProduit = '$nbrDessert' WHERE nomProduit = '$test' ";
+    echo $nbrDessert = $_GET['nbrDessert'];
+    echo $nomDessert = $_GET['nomDessert'];
+
+    $sqlAddProduit = "UPDATE produit SET nbrProduit = '$nbrDessert' WHERE nomProduit = '$nomDessert' "; //Modifie le nombre  de desserts dns la BDD
     $bdd->exec($sqlAddProduit);
     echo "Vous venez d'ajouter ".$nbrDessert." desserts";
   }

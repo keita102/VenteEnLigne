@@ -134,7 +134,7 @@ connexionUser($bdd);
           <div class="row">
 
           <?php
-            selectionDessert($bdd); //Appel de la fonction selectionDessert
+            selectionP($bdd, 'dessert'); //Appel de la fonction selectionDessert
             updateProduit($bdd); //Appel de la fonction insertProduit
           ?>
 
