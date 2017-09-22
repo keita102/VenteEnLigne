@@ -33,7 +33,7 @@ connexionUser($bdd);
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="index.php">PizzaTen</a>
+        <a class="navbar-brand" href="index.php"><img src="images/logoPizzaAcc.png" alt="PizzaTen" class="avatar"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -41,9 +41,6 @@ connexionUser($bdd);
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
               <a class="nav-link" href="index.php">ACCUEIL</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="lacarte.php">LA CARTE</a>
             </li>
             <li class="nav-item active">
               <a class="nav-link" href="lespizzas.php">LES PIZZAS</a>
@@ -68,7 +65,7 @@ connexionUser($bdd);
                 }
                 echo "<li class='nav-item'><a class='nav-link' href='deconnexion.php'>Deconnexion</a></li>";
               }else{
-                echo "<li onclick=\"document.getElementById('id01').style.display='block'\"><a class='nav-link' href='#'><span class='glyphicon glyphicon-user'></span>Connexion</a></li>"; //Appel de la fonction onclick
+                echo "<li onclick=\"document.getElementById('id01').style.display='block'\"><a class='nav-link' href='#'>Connexion</a></li>"; //Appel de la fonction onclick
                 echo "<li class='nav-item'><a class='nav-link' href='inscription.php'>Inscrivez-vous</a></li>";
               }
             ?>
@@ -129,12 +126,15 @@ connexionUser($bdd);
 
           <?php
             connexion($bdd); //Appel de la fonction connexion
+            updateProduit($bdd, 'pizzas'); //Appel de la fonction updateProduit
           ?>
 
           <div class="row">
 
           <?php
             selectionP($bdd, 'pizza'); //Appel de la fonction selectionProduit
+            calculePrix($bdd);
+
           ?>
 
           </div>
